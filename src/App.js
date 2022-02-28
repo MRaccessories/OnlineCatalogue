@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+import ModeSetter from "./MyComponents/descision";
 
 function App() {
+  const [SearchData, setSearchData] = useState({data: "",cond: false,});
+
+  const SearchHandler = (e) => {
+    var SearchValue = e.target.value;
+    SearchValue = SearchValue.trimStart();
+    if (SearchValue.length > 0) {
+      setSearchData({ data: SearchValue, cond: true });
+    } else {
+      setSearchData({ data: "", cond: false });
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <>
+          <div className="centermaker">
+            <div className="NavBar"></div>
+            <div className="spacer-col"></div>
+            <input
+              className="SearchBar"
+              placeholder="Search.."
+              value={SearchData.data}
+              onChange={SearchHandler}
+            ></input>
+            <div className="spacer-col"></div>
+          </div>
+          <ModeSetter data={SearchData} />
+    </>
   );
 }
 
