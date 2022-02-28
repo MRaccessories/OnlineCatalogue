@@ -13,6 +13,8 @@ function DeleteProductData(props){
    const [products, setProduct] = useState([]);
    const [alterData,setalterdata]= useState([]);
    const [UpdatedData,setUpdatedData]= useState({});
+   const [skeletonValue, setSkeletonValue] = useState(5);
+
 
 
    useEffect(() => {
@@ -47,6 +49,7 @@ function DeleteProductData(props){
       });
       setalterdata(alterData);
       setProduct(products);
+      setSkeletonValue(0);
    });
     }, [props.SearchData.data]);
    
@@ -194,7 +197,7 @@ function DeleteProductData(props){
         });
       }
        }}
-       skeleton={0}
+       skeleton={skeletonValue}
        // Any non zero number will override default cards
        // and will show that many skeleton cards.
     />

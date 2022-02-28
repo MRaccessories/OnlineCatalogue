@@ -9,11 +9,11 @@ import data from './data.js'
 
 function ProductData(props){
    const [products, setProduct] = useState([]);
+   const [skeletonValue, setSkeletonValue] = useState(5);
+
    useEffect(() => {
-      let products=[];
+   let products=[];
    Axios.get(data.baseurl+"/getitems").then((response) => {
-      // console.log(`data:${response.data[0].imgcontentType};base64,`+btoa(response.data[0].imgdata.data));
-      // console.log(Buffer.Buffer(response.data[0].imgdata.data).toString('base64'));
       response.data.forEach(element => {
       if(props.SearchData.cond){
          if(element.name.toLowerCase().includes(props.SearchData.data.toLowerCase())){
@@ -40,6 +40,7 @@ function ProductData(props){
       })
    }
       });
+      setSkeletonValue(0);
       setProduct(products);
    });
 }, [props.SearchData.data]);
@@ -81,7 +82,7 @@ function ProductData(props){
         // any arguments passed will be before 'event' 
         // and 'objectData'
        }}
-       skeleton={0}
+       skeleton={skeletonValue}
        // Any non zero number will override default cards
        // and will show that many skeleton cards.
     />
